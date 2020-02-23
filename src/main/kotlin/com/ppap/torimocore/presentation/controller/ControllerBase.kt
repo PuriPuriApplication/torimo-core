@@ -12,10 +12,13 @@ import java.util.*
 @RestController
 class ControllerBase {
 
+    private val STATUS_CODE = "statusCode"
+    private val MESSAGE = "message"
+
     fun createResponse(status: HttpStatus): Map<String, String?> {
         val map: MutableMap<String, String?> = HashMap()
-        map["statusCode"] = status.value().toString()
-        map["message"] = status.reasonPhrase
+        map[STATUS_CODE] = status.value().toString()
+        map[MESSAGE] = status.reasonPhrase
         return map
     }
 
@@ -41,8 +44,8 @@ class ControllerBase {
 
     private fun createResponse(e: HttpClientErrorException): Map<String, String?> {
         val map: MutableMap<String, String?> = HashMap()
-        map["statusCode"] = e.statusCode.value().toString()
-        map["message"] = e.message
+        map[STATUS_CODE] = e.statusCode.value().toString()
+        map[MESSAGE] = e.message
         return map
     }
 }
