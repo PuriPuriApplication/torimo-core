@@ -54,10 +54,9 @@ CREATE TABLE `categories` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE `article_categories` (
-  `id` int NOT NULL AUTO_INCREMENT,
   `article_id` int NOT NULL,
   `category_id` int NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`article_id`, `category_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 
@@ -82,5 +81,5 @@ categories
 VALUES
 ('女子会', '1', now());
 
-INSERT INTO article_categories VALUES ('1', '1', '1');
+INSERT INTO article_categories VALUES (1, 1);
 
