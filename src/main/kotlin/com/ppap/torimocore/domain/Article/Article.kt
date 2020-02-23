@@ -30,13 +30,14 @@ data class Article(
         @ManyToOne
         @JoinColumn(name = "shop_id")
         val shop: Shop
+
 ) : Serializable {
     @OneToMany
     @JoinTable
     (
             name = "article_categories",
-            joinColumns = arrayOf(JoinColumn(name = "article_id")),
-            inverseJoinColumns = arrayOf(JoinColumn(name = "category_id")))
+            joinColumns = [JoinColumn(name = "article_id")],
+            inverseJoinColumns = [JoinColumn(name = "category_id")])
     lateinit var categories: List<Category>
 }
 
