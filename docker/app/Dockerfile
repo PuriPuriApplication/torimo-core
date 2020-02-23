@@ -8,4 +8,4 @@ COPY . /jar
 
 WORKDIR /jar
 
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=production", "torimo-search-1.jar"]
+ENTRYPOINT ["java", "-jar", "torimo-core-0.1.jar"]
