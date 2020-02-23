@@ -7,8 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 
 
 @Repository
-@Transactional
-interface ArticleLikeRepository: JpaRepository<ArticleLike, Long> {
+interface ArticleLikeRepository : JpaRepository<ArticleLike, Long> {
 
     fun findByArticleIdAndUserId(articleId: Long, userId: Long): ArticleLike?
 
