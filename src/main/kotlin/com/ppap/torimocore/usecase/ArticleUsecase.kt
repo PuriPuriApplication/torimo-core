@@ -1,6 +1,6 @@
 package com.ppap.torimocore.usecase
 
-import com.ppap.torimocore.domain.Article.ArticleRepository
+import com.ppap.torimocore.interfaces.database.ArticleRepository
 import org.springframework.stereotype.Service
 
 @Service

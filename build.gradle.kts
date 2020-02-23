@@ -8,6 +8,16 @@ plugins {
 	kotlin("plugin.jpa") version "1.3.61"
 }
 
+buildscript {
+	dependencies {
+		classpath("org.jetbrains.kotlin:kotlin-noarg")
+	}
+}
+
+apply {
+	plugin("kotlin-jpa")
+}
+
 group = "com.ppap"
 version = "0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
