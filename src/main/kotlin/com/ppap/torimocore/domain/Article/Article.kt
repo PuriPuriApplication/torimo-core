@@ -1,7 +1,10 @@
 package com.ppap.torimocore.domain.Article
 
+import com.ppap.torimocore.domain.Category.Category
+import java.io.Serializable
 import com.ppap.torimocore.domain.Shop.Shop
 import com.ppap.torimocore.domain.User.User
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -17,11 +20,8 @@ data class Article(
         @Column(name = "body")
         val body: String,
 
-        @Column(name = "header_image")
-        val headerImage: String,
-
-        @Column(name = "is_deleted", nullable = false)
-        val isDeleted: Boolean,
+        @Column(name = "create_at")
+        val createAt: LocalDate,
 
         @ManyToOne
         @JoinColumn(name = "user_id")
@@ -30,4 +30,13 @@ data class Article(
         @ManyToOne
         @JoinColumn(name = "shop_id")
         val shop: Shop
-)
+) : Serializable {
+    @OneToMany
+    @JoinTable
+    (
+            name = "article_categories",
+            joinColumns = arrayOf(JoinColumn(name = "article_id")),
+            inverseJoinColumns = arrayOf(JoinColumn(name = "category_id")))
+    lateinit var categories: List<Category>
+}
+
