@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS `test_table`;
 DROP TABLE IF EXISTS `articles`;
 DROP TABLE IF EXISTS `shops`;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `article_categories`;
 
 ---- create ----
 CREATE TABLE `articles` (
@@ -10,10 +12,9 @@ CREATE TABLE `articles` (
   `title` varchar(100) NOT NULL,
   `user_id` int NOT NULL,
   `shop_id` int,
-  `body` varchar(500),
-  `header_image` varchar(500),
+  `body` text,
   `is_deleted` boolean DEFAULT 0,
-  `create_at` datetime,
+  `create_at` datetime NOT NULL,
   `update_at` datetime,
   `delete_at` datetime,
   PRIMARY KEY (`id`)
@@ -42,10 +43,28 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE `categories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `create_user` int NOT NULL DEFAULT 1,
+  `is_deleted` boolean DEFAULT 0,
+  `create_at` datetime NOT NULL,
+  `delete_at` datetime,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE `article_categories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+
 -- insert --
 INSERT INTO `articles` VALUES
-(1, 'test title 1', 1, 1, 'body', 'image', 0, null, null, null),
-(2, 'test title 2', 2, 2, 'body', 'image', 0, null, null, null);
+(1, 'test title 1', 1, 1, 'このお店おいしい！', 0, now(), now(), null),
+(2, 'test title 2', 2, 2, 'このお店は微妙', 0, now(), now(), null);
 
 INSERT INTO `shops` VALUES
 (1, 'ガスト', 0, 0, 0, null, null),
@@ -54,3 +73,14 @@ INSERT INTO `shops` VALUES
 INSERT INTO `users` VALUES
 (1, 'つじたてすと1', '', '', 0, null, null, null ),
 (2, 'つじたてすと2', '', '', 0, null, null, null );
+
+INSERT INTO
+categories
+(`name`,
+ `create_user`,
+ `create_at`)
+VALUES
+('女子会', '1', now());
+
+INSERT INTO article_categories VALUES ('1', '1', '1');
+
