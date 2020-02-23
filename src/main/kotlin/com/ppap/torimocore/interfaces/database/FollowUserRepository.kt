@@ -5,4 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface FollowUserRepository : JpaRepository<FollowUser, Long>
+interface FollowUserRepository : JpaRepository<FollowUser, Long> {
+
+    fun findByFromAndTo(from: Long, to: Long): FollowUser?
+
+}
