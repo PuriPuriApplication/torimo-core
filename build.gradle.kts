@@ -22,6 +22,8 @@ group = "com.ppap"
 version = "0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
+val retrofitVersion = "2.4.0"
+
 repositories {
 	mavenCentral()
 }
@@ -32,6 +34,9 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+	implementation("com.squareup.retrofit2:adapter-rxjava:$retrofitVersion")
+	implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
