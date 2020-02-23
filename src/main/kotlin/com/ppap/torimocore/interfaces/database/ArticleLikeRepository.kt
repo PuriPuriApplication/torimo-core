@@ -1,5 +1,6 @@
-package com.ppap.torimocore.domain.ArticleLike
+package com.ppap.torimocore.interfaces.database
 
+import com.ppap.torimocore.domain.ArticleLike.ArticleLike
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional

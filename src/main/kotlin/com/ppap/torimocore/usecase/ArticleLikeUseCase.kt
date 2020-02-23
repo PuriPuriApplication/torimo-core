@@ -1,7 +1,7 @@
 package com.ppap.torimocore.usecase
 
 import com.ppap.torimocore.domain.ArticleLike.ArticleLike
-import com.ppap.torimocore.domain.ArticleLike.ArticleLikeRepository
+import com.ppap.torimocore.interfaces.database.ArticleLikeRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
