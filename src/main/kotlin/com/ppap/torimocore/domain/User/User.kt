@@ -1,5 +1,6 @@
 package com.ppap.torimocore.domain.User
 
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -17,4 +18,4 @@ data class User(
 
         @Column(name = "external_service_type", nullable = false)
         val externalServiceType: String
-) {}
+): Serializable
