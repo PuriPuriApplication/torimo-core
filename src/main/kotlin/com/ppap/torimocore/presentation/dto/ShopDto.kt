@@ -6,10 +6,8 @@ data class ShopDto(
         val id: Long,
         val name: String
 ) {
-    companion object {
-        fun convert(shop: Shop): ShopDto {
-            return ShopDto(shop.id, shop.name)
+}
 
-        }
-    }
+fun Shop.toDto(): ShopDto {
+    return ShopDto(this.id, this.name)
 }

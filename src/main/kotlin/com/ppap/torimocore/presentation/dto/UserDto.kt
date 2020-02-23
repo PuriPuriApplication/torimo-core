@@ -8,10 +8,8 @@ data class UserDto(
         val externalServiceId: String,
         val externalServiceType: String
 ) {
-    companion object {
-        fun convert(user: User): UserDto {
-            return UserDto(user.id, user.name, user.externalServiceId, user.externalServiceType)
+}
 
-        }
-    }
+fun User.toDto(): UserDto {
+    return UserDto(this.id, this.name, this.externalServiceId, this.externalServiceType)
 }

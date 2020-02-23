@@ -12,12 +12,11 @@ data class ArticleDto(
         val shop: ShopDto,
         val categories: List<CategoryDto>
 ) {
-    companion object {
-        fun convert(article: Article): ArticleDto {
-            val user: UserDto = UserDto.convert(article.user)
-            val shop: ShopDto = ShopDto.convert(article.shop)
-            val categories: List<CategoryDto> = article.categories.map {  CategoryDto.convert(it) }
-            return ArticleDto(article.id, article.title, article.body, article.createAt, user, shop, categories)
-        }
-    }
+}
+
+fun Article.toDto(): ArticleDto {
+    val user: UserDto = this.user.toDto()
+    val shop: ShopDto = this.shop.toDto()
+    val categories: List<CategoryDto> = this.categories.map {  it.toDto() }
+    return ArticleDto(this.id, this.title, this.body, this.createAt, user, shop, categories)
 }

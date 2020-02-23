@@ -1,6 +1,7 @@
 package com.ppap.torimocore.presentation.controller
 
 import com.ppap.torimocore.presentation.dto.ArticleDto
+import com.ppap.torimocore.presentation.dto.toDto
 import com.ppap.torimocore.usecase.ArticleUsecase
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,9 +14,9 @@ class ArticleController(private val usecase: ArticleUsecase): ControllerBase() {
 
     @GetMapping
     fun index(): List<ArticleDto> {
-        return usecase.showList().map { ArticleDto.convert(it) }
+        return usecase.showList().map { it.toDto() }
     }
 
     @GetMapping("{id}")
-    fun show(@PathVariable("id") id: Long): ArticleDto = ArticleDto.convert(usecase.showDetail(id))
+    fun show(@PathVariable("id") id: Long): ArticleDto = usecase.showDetail(id).toDto()
 }
