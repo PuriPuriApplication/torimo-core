@@ -14,13 +14,13 @@ interface ArticleUsecase {
     /**
      * 投稿の詳細を参照します
      */
-    fun showDetail(id: Long): Article
+    fun showDetail(id: Long): Article?
 }
 
 @Service
 class ArticleUsecaseImpl(private val repository: ArticleRepository): ArticleUsecase {
     override fun showList(): List<Article> = repository.findAll()
 
-    override fun showDetail(id: Long): Article = repository.findById(id).orElse(null)
+    override fun showDetail(id: Long): Article? = repository.findById(id).orElse(null)
 }
 

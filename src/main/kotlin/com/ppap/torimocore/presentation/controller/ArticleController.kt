@@ -18,5 +18,5 @@ class ArticleController(private val usecase: ArticleUsecase): ControllerBase() {
     }
 
     @GetMapping("{id}")
-    fun show(@PathVariable("id") id: Long): ArticleDto = usecase.showDetail(id).toDto()
+    fun show(@PathVariable("id") id: Long): ArticleDto? = usecase.showDetail(id)?.let { it.toDto() }
 }
