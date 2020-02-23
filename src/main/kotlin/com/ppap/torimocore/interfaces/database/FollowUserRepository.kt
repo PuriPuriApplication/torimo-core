@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface FollowUserRepository : JpaRepository<FollowUser, Long> {
 
-    fun findByFromAndTo(from: Long, to: Long): FollowUser?
+    fun findByFromUserAndToUser(fromUser: Long, toUser: Long): FollowUser?
 
 }

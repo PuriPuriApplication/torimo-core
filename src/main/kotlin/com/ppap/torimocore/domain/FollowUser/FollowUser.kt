@@ -8,14 +8,14 @@ import javax.persistence.*
 @Table(name = "follow_users")
 data class FollowUser(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        val id: Long,
 
-    @Column(name = "from", nullable = false)
-    val from: Long,
+        @Column(name = "from_user", nullable = false)
+        val fromUser: Long,
 
-    @Column(name = "to", nullable = false)
-    val to: Long
+        @Column(name = "to_user", nullable = false)
+        val toUser: Long
 
-): Serializable
+) : Serializable
