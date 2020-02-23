@@ -1,7 +1,7 @@
 package com.ppap.torimocore.presentation.controller
 
-import com.ppap.torimocore.presentation.dto.ArticleLikeFormDto
-import com.ppap.torimocore.usecase.ArticleLikeUseCase
+import com.ppap.torimocore.presentation.dto.FollowUserFormDto
+import com.ppap.torimocore.usecase.FollowUserUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.client.HttpClientErrorException
 
 /**
- * 投稿いいねのController
- * FIXME: `/article/{id}/like`, `/article/{id}/unlike`にしたいけど一旦こちらで実装
+ * ユーザーフォローのController
+ * FIXME: `/user/{id}/follow`, `/user/{id}/unfollow`にしたいけど一旦こちらで実装
  */
 @RestController
-@RequestMapping("/article-like")
-class ArticleLikeController(private val useCase: ArticleLikeUseCase) : ControllerBase() {
+@RequestMapping("/followUser")
+class FollowUserController(private val usecase: FollowUserUseCase) : ControllerBase() {
 
-    @PostMapping("like")
-    fun like(@RequestBody @Validated form: ArticleLikeFormDto, bindingResult: BindingResult): Map<String, String?> {
+    @PostMapping("follow")
+    fun follow(@RequestBody @Validated form: FollowUserFormDto, bindingResult: BindingResult): Map<String, String?> {
         if (bindingResult.hasErrors()) throw HttpClientErrorException(HttpStatus.BAD_REQUEST, bindingResult.allErrors.toString())
-        useCase.like(form.convert())
+        usecase.follow(form.convert())
         return createResponse(HttpStatus.OK)
     }
 
-    @PostMapping("unlike")
-    fun unlike(@RequestBody form: ArticleLikeFormDto, bindingResult: BindingResult): Map<String, String?> {
+    @PostMapping("unfollow")
+    fun unfollow(@RequestBody @Validated form: FollowUserFormDto, bindingResult: BindingResult): Map<String, String?> {
         if (bindingResult.hasErrors()) throw HttpClientErrorException(HttpStatus.BAD_REQUEST, bindingResult.allErrors.toString())
-        useCase.unlike(form.convert())
+        usecase.unfollow(form.convert())
         return createResponse(HttpStatus.OK)
     }
 
