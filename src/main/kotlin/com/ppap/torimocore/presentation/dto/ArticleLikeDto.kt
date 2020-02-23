@@ -2,19 +2,13 @@ package com.ppap.torimocore.presentation.dto
 
 import com.ppap.torimocore.domain.ArticleLike.ArticleLike
 
-data class ArticleLikeDto(
-     val id: Long,
+data class ArticleLikeFormDto(
      val articleId: Long,
      val userId: Long
 ) {
-    constructor(entity: ArticleLike) : this(entity.id, entity.articleId, entity.userId)
-}
-
-data class ArticleLikeForm(
-     val articleId: Long,
-     val userId: Long
-)
-
-fun convert(form: ArticleLikeForm): ArticleLike {
-    return ArticleLike(0, form.articleId, form.userId)
+    companion object {
+        fun convert(form: ArticleLikeFormDto): ArticleLike {
+            return ArticleLike(0, form.articleId, form.userId)
+        }
+    }
 }
