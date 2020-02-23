@@ -18,13 +18,13 @@ class ArticleLikeController(private val useCase: ArticleLikeUseCase): Controller
 
     @PostMapping("like")
     fun like(@RequestBody form: ArticleLikeFormDto): Map<String, String?> {
-        useCase.like(ArticleLikeFormDto.convert(form))
+        useCase.like(form.convert())
         return createResponse(HttpStatus.OK)
     }
 
     @PostMapping("unlike")
     fun unlike(@RequestBody form: ArticleLikeFormDto): Boolean {
-        return useCase.unlike(ArticleLikeFormDto.convert(form))
+        return useCase.unlike(form.convert())
     }
 
 }
