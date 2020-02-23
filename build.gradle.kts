@@ -22,7 +22,7 @@ group = "com.ppap"
 version = "0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-val retrofitVersion = "2.4.0"
+val retrofitVersion = "2.6.0"
 
 repositories {
 	mavenCentral()
