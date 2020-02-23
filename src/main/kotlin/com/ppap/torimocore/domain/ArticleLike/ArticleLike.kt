@@ -14,10 +14,10 @@ data class ArticleLike(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
 
-    @Column(name = "article_id")
+    @Column(name = "article_id", nullable = false)
     val articleId: Long,
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     val userId: Long
 
 ): Serializable
