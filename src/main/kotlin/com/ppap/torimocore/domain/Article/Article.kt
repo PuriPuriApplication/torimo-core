@@ -1,5 +1,6 @@
 package com.ppap.torimocore.domain.Article
 
+import com.ppap.torimocore.domain.Shop.Shop
 import com.ppap.torimocore.domain.User.User
 import javax.persistence.*
 
@@ -24,5 +25,9 @@ data class Article(
 
         @ManyToOne
         @JoinColumn(name = "user_id")
-        val user: User
+        val user: User,
+
+        @ManyToOne
+        @JoinColumn(name = "shop_id")
+        val shop: Shop
 )
