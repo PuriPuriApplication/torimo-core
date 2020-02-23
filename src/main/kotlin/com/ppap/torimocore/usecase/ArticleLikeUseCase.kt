@@ -20,12 +20,12 @@ interface ArticleLikeUseCase {
     /**
      * 投稿のいいねを外します
      */
-    fun unlike(articleLike: ArticleLike): Boolean
+    fun unlike(articleLike: ArticleLike)
 
 }
 
 @Service
-class ArticleLikeUseCaseImpl(private val repository: ArticleLikeRepository): ArticleLikeUseCase {
+class ArticleLikeUseCaseImpl(private val repository: ArticleLikeRepository) : ArticleLikeUseCase {
 
     @Transactional
     override fun like(articleLike: ArticleLike): ArticleLike {
@@ -34,12 +34,9 @@ class ArticleLikeUseCaseImpl(private val repository: ArticleLikeRepository): Art
     }
 
     @Transactional
-    override fun unlike(articleLike: ArticleLike): Boolean {
+    override fun unlike(articleLike: ArticleLike) {
         val liked = repository.findByArticleIdAndUserId(articleLike.articleId, articleLike.userId)
-        return liked?.let {
-            repository.delete(it)
-            true
-        } ?: false
+        return liked?.let { repository.delete(it) } ?: throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
     }
 
 }
