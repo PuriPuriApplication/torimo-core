@@ -16,7 +16,7 @@ interface ArticleUsecase {
     /**
      * 投稿の詳細を参照します
      */
-    fun showDetail(id: Long): Article
+    fun showDetail(id: Long): Article?
 
     /**
      * 記事を投稿します
@@ -36,7 +36,7 @@ class ArticleUsecaseImpl(private val repository: ArticleRepository) : ArticleUse
 
     override fun showList(): List<Article> = repository.findAll()
 
-    override fun showDetail(id: Long): Article = repository.findById(id).orElse(null)
+    override fun showDetail(id: Long): Article? = repository.findById(id).orElse(null)
 
     override suspend fun post(article: Article): Article {
         return articleClient.postArticle(article).convert()
