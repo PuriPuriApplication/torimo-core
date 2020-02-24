@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.client.HttpClientErrorException
-import java.util.*
 
 @CrossOrigin
 @RestController
@@ -16,10 +15,10 @@ class ControllerBase {
     private val MESSAGE = "message"
 
     fun createResponse(status: HttpStatus): Map<String, String?> {
-        val map: MutableMap<String, String?> = HashMap()
-        map[STATUS_CODE] = status.value().toString()
-        map[MESSAGE] = status.reasonPhrase
-        return map
+        return mapOf(
+                STATUS_CODE  to status.value().toString(),
+                MESSAGE  to status.reasonPhrase
+        )
     }
 
     @ExceptionHandler(HttpClientErrorException::class)
@@ -28,7 +27,7 @@ class ControllerBase {
             // 随時必要なStatusを実装してください
             HttpStatus.BAD_REQUEST -> badRequest(e)
             HttpStatus.NOT_FOUND -> notFound(e)
-            else -> HashMap() // TODO: 雑だから適切な処理の実装
+            else -> emptyMap() // TODO: 雑だから適切な処理の実装
         }
     }
 
@@ -43,9 +42,10 @@ class ControllerBase {
     }
 
     private fun createResponse(e: HttpClientErrorException): Map<String, String?> {
-        val map: MutableMap<String, String?> = HashMap()
-        map[STATUS_CODE] = e.statusCode.value().toString()
-        map[MESSAGE] = e.message
-        return map
+        return mapOf(
+                STATUS_CODE to e.statusCode.value().toString(),
+                MESSAGE to e.message
+        )
     }
+
 }
