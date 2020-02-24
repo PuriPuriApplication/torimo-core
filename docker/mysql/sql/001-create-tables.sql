@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS `shops`;
 DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `article_categories`;
+DROP TABLE IF EXISTS `follow_users`;
 
 ---- create ----
 CREATE TABLE `articles` (
@@ -59,6 +60,13 @@ CREATE TABLE `article_categories` (
   PRIMARY KEY (`article_id`, `category_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE `follow_users` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `from_user` bigint NOT NULL,
+  `to_user` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 
 -- insert --
 INSERT INTO `articles` VALUES
@@ -82,4 +90,6 @@ VALUES
 ('女子会', '1', now());
 
 INSERT INTO article_categories VALUES (1, 1);
+
+INSERT INTO follow_users VALUES (1, 1, 2), (2, 2, 1);
 

@@ -22,6 +22,8 @@ interface FollowUserUseCase {
      */
     fun unfollow(followUser: FollowUser)
 
+    fun countFollower(toUserId: Long): Int
+
 }
 
 @Service
@@ -29,7 +31,7 @@ class FollowUserUseCaseImpl(private val repository: FollowUserRepository) : Foll
 
     @Transactional
     override fun follow(followUser: FollowUser): FollowUser {
-        if(followUser.fromUser == followUser.toUser) throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
+        if (followUser.fromUser == followUser.toUser) throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
         val followed = repository.findByFromUserAndToUser(followUser.fromUser, followUser.toUser)
         return followed?.let { throw HttpClientErrorException(HttpStatus.BAD_REQUEST) } ?: repository.save(followUser)
     }
@@ -40,4 +42,7 @@ class FollowUserUseCaseImpl(private val repository: FollowUserRepository) : Foll
         return followed?.let { repository.delete(it) } ?: throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
     }
 
+    override fun countFollower(toUserId: Long): Int {
+        return repository.countByToUser(toUserId)
+    }
 }
