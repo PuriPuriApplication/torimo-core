@@ -6,7 +6,7 @@ import java.util.*
 import javax.persistence.*
 
 /**
- * 投稿へのいいね
+ * ユーザーデータ
  */
 @Entity
 @Table(name = "users")
