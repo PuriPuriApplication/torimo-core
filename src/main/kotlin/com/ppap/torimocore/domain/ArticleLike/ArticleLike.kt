@@ -10,14 +10,14 @@ import javax.persistence.*
 @Table(name = "article_likes")
 data class ArticleLike(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        val id: Long,
 
-    @Column(name = "article_id", nullable = false)
-    val articleId: Long,
+        @Column(name = "article_id", nullable = false)
+        val articleId: Long,
 
-    @Column(name = "user_id", nullable = false)
-    val userId: Long
+        @Column(name = "user_id", nullable = false)
+        val userId: Long
 
-): Serializable
+) : Serializable

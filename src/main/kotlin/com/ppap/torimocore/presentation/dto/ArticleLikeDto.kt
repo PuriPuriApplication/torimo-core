@@ -1,14 +1,16 @@
 package com.ppap.torimocore.presentation.dto
 
 import com.ppap.torimocore.domain.ArticleLike.ArticleLike
+import javax.validation.constraints.NotNull
 
 data class ArticleLikeFormDto(
-     val articleId: Long,
-     val userId: Long
+        @field:NotNull
+        val articleId: Long?,
+        @field:NotNull
+        val userId: Long?
 ) {
-    companion object {
-        fun convert(form: ArticleLikeFormDto): ArticleLike {
-            return ArticleLike(0, form.articleId, form.userId)
-        }
+    fun convert(): ArticleLike {
+        // バリデーションでnullをチェックするためnullableにしているため仕方なく強制アンラップをしています
+        return ArticleLike(0, this.articleId!!, this.userId!!)
     }
 }

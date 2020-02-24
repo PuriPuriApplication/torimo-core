@@ -1,57 +1,47 @@
----- drop -----
-
-DROP TABLE IF EXISTS `article_categories`;
-DROP TABLE IF EXISTS `article_likes`;
+---- drop ----
+DROP TABLE IF EXISTS `test_table`;
 DROP TABLE IF EXISTS `articles`;
-DROP TABLE IF EXISTS `categories`;
-DROP TABLE IF EXISTS `follow_users`;
 DROP TABLE IF EXISTS `shops`;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `article_categories`;
 
-
----- create ---
-CREATE TABLE `article_categories` (
-  `article_id` int NOT NULL,
-  `category_id` int NOT NULL,
-  PRIMARY KEY (`article_id`, `category_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-INSERT INTO article_categories VALUES ('1', '1');
-
-
-CREATE TABLE `article_likes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `article_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-INSERT INTO article_likes VALUES ('1', '1', '1');
-
-
+---- create ----
 CREATE TABLE `articles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `user_id` int NOT NULL,
   `shop_id` int,
   `body` text,
-  `status` varchar(16) NOT NULL,
+  `is_deleted` boolean DEFAULT 0,
   `create_at` datetime NOT NULL,
   `update_at` datetime,
+  `delete_at` datetime,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO
-articles
-(`title`,
- `user_id`,
- `shop_id`,
- `body`,
- `status`,
- `create_at`)
-VALUES
-('test_title', '1', '1', 'このお店おいしい！！', 'publish', now());
+CREATE TABLE `shops` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `station_id` int DEFAULT 0,
+  `create_user` int NOT NULL DEFAULT 0,
+  `is_deleted` boolean DEFAULT 0,
+  `create_at` datetime,
+  `delete_at` datetime,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `external_service_id` varchar(50) NOT NULL,
+  `external_service_type` varchar(15) NOT NULL,
+  `is_deleted` boolean DEFAULT 0,
+  `create_at` datetime,
+  `update_at` datetime,
+  `delete_at` datetime,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE `categories` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -63,63 +53,33 @@ CREATE TABLE `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE `article_categories` (
+  `article_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  PRIMARY KEY (`article_id`, `category_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+
+-- insert --
+INSERT INTO `articles` VALUES
+(1, 'test title 1', 1, 1, 'このお店おいしい！', 0, now(), now(), null),
+(2, 'test title 2', 2, 2, 'このお店は微妙', 0, now(), now(), null);
+
+INSERT INTO `shops` VALUES
+(1, 'ガスト', 0, 0, 0, null, null),
+(2, 'バーミヤン', 0, 0, 0, null, null);
+
+INSERT INTO `users` VALUES
+(1, 'つじたてすと1', '', '', 0, null, null, null ),
+(2, 'つじたてすと2', '', '', 0, null, null, null );
+
 INSERT INTO
 categories
 (`name`,
  `create_user`,
  `create_at`)
 VALUES
-('test_tag', '1', now());
+('女子会', '1', now());
 
+INSERT INTO article_categories VALUES (1, 1);
 
-CREATE TABLE `follow_users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `from` int NOT NULL,
-  `to` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-INSERT INTO follow_users VALUES ('1', '1', '2');
-
-
-CREATE TABLE `shops` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `station_id` int DEFAULT 0,
-  `create_user` int NOT NULL DEFAULT 1,
-  `is_deleted` boolean DEFAULT 0,
-  `create_at` datetime NOT NULL,
-  `delete_at` datetime,
-  PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-INSERT INTO
-shops
-(`name`,
- `create_user`,
- `create_at`)
-VALUES
-('test_shop', '1', now());
-
-
-CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  `external_service_id` varchar(50) NOT NULL,
-  `external_service_type` varchar(16) NOT NULL,
-  `is_deleted` boolean DEFAULT 0,
-  `create_at` datetime NOT NULL,
-  `update_at` datetime,
-  `delete_at` datetime,
-  PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-INSERT INTO
-users
-(`name`,
- `external_service_id`,
- `external_service_type`,
- `create_at`)
-VALUES
-('test_user1', '@test_user1', 'twitter', now()),
-('test_user2', '@test_user2', 'twitter', now());
