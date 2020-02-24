@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 /**
- * 投稿のいいね処理
+ * ユーザー処理
  */
 interface UserUseCase {
 
