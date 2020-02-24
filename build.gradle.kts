@@ -35,11 +35,6 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.google.firebase:firebase-admin:6.8.1")
 
-	// for jwt
-//	implementation("io.jsonwebtoken:jjwt-api:0.11.0")
-//	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.0")
-//	implementation("io.jsonwebtoken:jjwt-jackson:0.11.0")
-
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

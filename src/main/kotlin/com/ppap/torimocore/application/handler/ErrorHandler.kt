@@ -19,7 +19,7 @@ class ExceptionHandler {
     fun handleError(): Map<String, Any> {
         val errorMap = HashMap<String, Any>()
         return mapOf(
-                "statusCode" to HttpStatus.METHOD_NOT_ALLOWED,
+                "statusCode" to HttpStatus.METHOD_NOT_ALLOWED.value().toString(),
                 "message" to "許可されていないメソッドです"
         )
     }
@@ -29,7 +29,7 @@ class ExceptionHandler {
     @ResponseBody
     fun tokenError(e: BadCredentialsException): Map<String, String?> {
         return mapOf(
-                "statusCode" to HttpStatus.UNAUTHORIZED.reasonPhrase,
+                "statusCode" to HttpStatus.UNAUTHORIZED.value().toString(),
                 "message" to e.message
         )
     }
