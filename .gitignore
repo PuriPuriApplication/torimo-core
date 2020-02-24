@@ -1,7 +1,5 @@
-docker/app/*.jar
-
 # test database
-docker/mysql/data
+develop/mysql/data
 
 HELP.md
 .gradle

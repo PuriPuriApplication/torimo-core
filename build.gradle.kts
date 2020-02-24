@@ -51,19 +51,10 @@ tasks {
 		}
 	}
 
-	val copy by creating(Copy::class) {
-		this.from("build/libs")
-		this.into("docker/app")
-		this.include("*.jar")
-	}
-
 	val cleanBuildWithCorePlugins by creating(GradleBuild::class) {
 		tasks = listOf("clean")
 	}
 	"clean" {
 		dependsOn(cleanBuildWithCorePlugins)
-	}
-	"check" {
-		dependsOn(copy)
 	}
 }
