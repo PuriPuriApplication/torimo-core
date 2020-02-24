@@ -36,9 +36,9 @@ dependencies {
 	implementation("com.google.firebase:firebase-admin:6.8.1")
 
 	// for jwt
-	implementation("io.jsonwebtoken:jjwt-api:0.11.0")
-	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.0")
-	implementation("io.jsonwebtoken:jjwt-jackson:0.11.0")
+//	implementation("io.jsonwebtoken:jjwt-api:0.11.0")
+//	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.0")
+//	implementation("io.jsonwebtoken:jjwt-jackson:0.11.0")
 
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {

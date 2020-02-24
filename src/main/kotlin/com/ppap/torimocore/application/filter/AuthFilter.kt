@@ -1,23 +1,21 @@
 package com.ppap.torimocore.application.filter
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.ppap.torimocore.usecase.AuthUseCase
+import org.codehaus.jackson.JsonProcessingException
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
-import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import com.fasterxml.jackson.databind.ObjectMapper
-import org.codehaus.jackson.JsonProcessingException
 
 
-@Component
-class LoginFilter(val useCase: AuthUseCase) : OncePerRequestFilter() {
+class AuthFilter(val useCase: AuthUseCase) : OncePerRequestFilter() {
 
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
@@ -27,11 +25,8 @@ class LoginFilter(val useCase: AuthUseCase) : OncePerRequestFilter() {
     ) {
         try {
             val token = getToken(request)
-            // コンテキストにログインユーザ情報をセット
-            SecurityContextHolder.getContext().authentication = PreAuthenticatedAuthenticationToken(
-                    useCase(token),
-                    null
-            )
+            val user = useCase(token)
+            SecurityContextHolder.getContext().authentication = PreAuthenticatedAuthenticationToken(user, null)
             filterChain.doFilter(request, response)
         } catch (e: BadCredentialsException) {
             val errorResponse = mapOf(
