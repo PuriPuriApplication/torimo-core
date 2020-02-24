@@ -6,5 +6,5 @@ COPY . /app
 WORKDIR /app
 
 RUN ./gradlew build
-WORKDIR /build/libs
+WORKDIR /app/build/libs
 ENTRYPOINT ["java", "-jar", "torimo-core-0.1.jar"]
