@@ -9,4 +9,6 @@ interface FollowUserRepository : JpaRepository<FollowUser, Long> {
 
     fun findByFromUserAndToUser(fromUser: Long, toUser: Long): FollowUser?
 
+    fun countByToUser(toUser: Long): Int
+
 }
