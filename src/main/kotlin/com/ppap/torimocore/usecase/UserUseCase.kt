@@ -3,8 +3,10 @@ package com.ppap.torimocore.usecase
 import com.ppap.torimocore.domain.User.User
 import com.ppap.torimocore.interfaces.database.UserRepository
 import com.ppap.torimocore.presentation.dto.UserDto
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.client.HttpClientErrorException
 
 /**
  * ユーザー処理
@@ -22,6 +24,9 @@ class UserUseCaseImpl(private val repository: UserRepository): UserUseCase {
 
     @Transactional
     override fun create(user: User): Unit {
-        repository.save(user);
+        val loadedUser = repository.findByExternalServiceId(user.externalServiceId)
+        loadedUser?.let {
+            throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
+        } ?: repository.save(user)
     }
 }

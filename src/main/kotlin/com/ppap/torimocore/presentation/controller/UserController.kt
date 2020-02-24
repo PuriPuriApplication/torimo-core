@@ -1,8 +1,6 @@
 package com.ppap.torimocore.presentation.controller
 
-import com.ppap.torimocore.presentation.dto.ArticleLikeFormDto
 import com.ppap.torimocore.presentation.dto.UserDto
-import com.ppap.torimocore.usecase.ArticleLikeUseCase
 import com.ppap.torimocore.usecase.UserUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping

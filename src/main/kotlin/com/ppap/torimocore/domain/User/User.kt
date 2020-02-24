@@ -23,6 +23,7 @@ data class User(
         @Column(name = "external_service_id", nullable = true)
         val externalServiceId: String,
 
+        @Enumerated(EnumType.STRING)
         @Column(name = "external_service_type", nullable = true)
         val externalServiceType: ExternalServiceTypeEnum,
 

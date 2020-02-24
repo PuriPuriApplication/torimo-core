@@ -9,4 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 @Repository
 @Transactional
 interface UserRepository: JpaRepository<User, Long> {
+
+    fun findByExternalServiceId(id: String): User?
+
 }
