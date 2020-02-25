@@ -31,12 +31,15 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
 	implementation("com.squareup.retrofit2:adapter-rxjava:$retrofitVersion")
 	implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+	implementation("com.google.firebase:firebase-admin:6.8.1")
+
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -56,19 +59,10 @@ tasks {
 		}
 	}
 
-	val copy by creating(Copy::class) {
-		this.from("build/libs")
-		this.into("docker/app")
-		this.include("*.jar")
-	}
-
 	val cleanBuildWithCorePlugins by creating(GradleBuild::class) {
 		tasks = listOf("clean")
 	}
 	"clean" {
 		dependsOn(cleanBuildWithCorePlugins)
-	}
-	"check" {
-		dependsOn(copy)
 	}
 }
