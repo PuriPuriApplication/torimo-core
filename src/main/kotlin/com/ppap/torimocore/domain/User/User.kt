@@ -3,7 +3,7 @@ package com.ppap.torimocore.domain.User
 import java.io.Serializable
 import javax.persistence.*
 
-typealias UserId = Int
+typealias UserId = Long
 typealias ServiceId = String
 /**
  * ユーザー
