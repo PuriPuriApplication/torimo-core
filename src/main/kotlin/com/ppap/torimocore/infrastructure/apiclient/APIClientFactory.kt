@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * 外部APIのFactoryクラスです
- * api-client.xmlから呼び出され,DIされるのを想定しています
+ * APIClientBeanから呼び出され, 各ClientがDIされるのを想定しています
  */
 class APIClientFactory {
 
