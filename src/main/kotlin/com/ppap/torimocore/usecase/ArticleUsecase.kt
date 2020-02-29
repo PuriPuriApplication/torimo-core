@@ -3,6 +3,7 @@ package com.ppap.torimocore.usecase
 import com.ppap.torimocore.domain.Article.Article
 import com.ppap.torimocore.interfaces.apiclient.ArticleClient
 import com.ppap.torimocore.interfaces.database.ArticleRepository
+import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import retrofit2.Retrofit
 
@@ -21,12 +22,12 @@ interface ArticleUsecase {
     /**
      * 記事を投稿します
      */
-    suspend fun post(article: Article): Article
+    fun post(article: Article): Article
 
     /**
      * 記事を更新します
      */
-    suspend fun update(article: Article): Article
+    fun update(article: Article): Article
 }
 
 @Service
@@ -38,12 +39,12 @@ class ArticleUsecaseImpl(private val repository: ArticleRepository) : ArticleUse
 
     override fun showDetail(id: Long): Article? = repository.findById(id).orElse(null)
 
-    override suspend fun post(article: Article): Article {
-        return articleClient.postArticle(article).convert()
+    override fun post(article: Article): Article = runBlocking {
+        articleClient.postArticle(article).convert()
     }
 
-    override suspend fun update(article: Article): Article {
-        return articleClient.updateArticle(article).convert()
+    override fun update(article: Article): Article = runBlocking {
+        articleClient.updateArticle(article).convert()
     }
 }
 

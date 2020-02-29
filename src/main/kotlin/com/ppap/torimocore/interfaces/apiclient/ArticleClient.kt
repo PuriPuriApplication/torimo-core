@@ -4,22 +4,31 @@ import com.ppap.torimocore.domain.Article.Article
 import com.ppap.torimocore.domain.Category.Category
 import com.ppap.torimocore.domain.Shop.Shop
 import com.ppap.torimocore.domain.User.User
-import org.springframework.stereotype.Component
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import java.time.LocalDate
 
-@Component
 interface ArticleClient {
 
+    /**
+     * postするデータはformDtoを作成する
+     */
     @POST("/new")
     suspend fun postArticle(article: Article): ArticleDto
 
+    /**
+     * putするデータはformDtoを作成する
+     */
     @PUT("/update")
     suspend fun updateArticle(article: Article): ArticleDto
 
 }
 
+
+/**
+ * TODO: 以下未完定義
+ * PRが肥大化するため次のPRで正確に実装していきます
+ */
 data class ArticleDto(
         val id: Long,
         val title: String,
@@ -40,10 +49,11 @@ data class UserDto(
         val id: Long,
         val name: String,
         val externalServiceId: String,
-        val externalServiceType: String
+        val externalServiceType: String,
+        val isDeleted: Boolean
 ) {
     fun convert(): User {
-        return User(this.id, this.name, this.externalServiceId, this.externalServiceType)
+        return User(this.id, this.name, this.externalServiceId, this.externalServiceType, this.isDeleted)
     }
 }
 
