@@ -33,10 +33,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
 	implementation("com.squareup.retrofit2:adapter-rxjava:$retrofitVersion")
+	implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
 	implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 	implementation("com.google.firebase:firebase-admin:6.8.1")
 
