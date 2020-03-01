@@ -6,13 +6,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
 /**
- * 全てのパスからBasic認証を無効化するConfigurationです。
+ * Spring SecurityのConfigurationです。
  */
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http.authorizeRequests().antMatchers("/").permitAll()
+        http.
+                // Basic認証の無効化
+                authorizeRequests().antMatchers("/").permitAll().and().
+                // CSRFトークンの無効化 TODO: 多分いずれちゃんとやらないといけないやーつ
+                csrf().disable()
     }
 }
