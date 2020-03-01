@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 
-typealias Response = Map<String, Any?>
+typealias Body = Map<String, Any?>
 
 @ControllerAdvice
 class ExceptionHandler {
@@ -17,7 +17,7 @@ class ExceptionHandler {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     @ResponseBody
-    fun handleError(): ResponseEntity<Response> = ResponseEntity(mapOf(
+    fun handleError(): ResponseEntity<Body> = ResponseEntity(mapOf(
             "statusCode" to HttpStatus.METHOD_NOT_ALLOWED.value().toString(),
             "message" to "許可されていないメソッドです"
     ), HttpStatus.METHOD_NOT_ALLOWED)
@@ -25,7 +25,7 @@ class ExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException::class)
     @ResponseBody
-    fun tokenError(e: BadCredentialsException): ResponseEntity<Response> = ResponseEntity(mapOf(
+    fun tokenError(e: BadCredentialsException): ResponseEntity<Body> = ResponseEntity(mapOf(
             "statusCode" to HttpStatus.UNAUTHORIZED.value().toString(),
             "message" to e.message
     ), HttpStatus.UNAUTHORIZED)
