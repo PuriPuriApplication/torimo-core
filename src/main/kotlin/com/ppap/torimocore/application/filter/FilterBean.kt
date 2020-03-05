@@ -13,7 +13,7 @@ class FilterConfig {
     fun authFilter(useCase: AuthUseCase): FilterRegistrationBean<*> {
         // 認証をしたいパスを設定する
         val authUrls = listOf(
-                "test"
+                "/test"
         )
         val filter = AuthFilter(useCase)
         return FilterRegistrationBean(filter).apply {
