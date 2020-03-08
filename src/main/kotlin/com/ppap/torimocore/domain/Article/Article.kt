@@ -1,8 +1,6 @@
 package com.ppap.torimocore.domain.Article
 
-import com.ppap.torimocore.domain.ArticleLike.ArticleLike
 import com.ppap.torimocore.domain.Category.Category
-import com.ppap.torimocore.domain.FollowUser.FollowUser
 import java.io.Serializable
 import com.ppap.torimocore.domain.Shop.Shop
 import com.ppap.torimocore.domain.User.User
@@ -31,15 +29,15 @@ data class Article(
 
         @ManyToOne
         @JoinColumn(name = "shop_id")
-        val shop: Shop,
+        val shop: Shop
 
-        @OneToMany
-        @JoinColumn(name = "article_id", referencedColumnName = "id")
-        val articleLikes: List<ArticleLike>,
-
-        @OneToMany
-        @JoinColumn(name = "from_user", referencedColumnName = "user_id")
-        val followUsers: List<FollowUser>
+//        @OneToMany
+//        @JoinColumn(name = "article_id", referencedColumnName = "id")
+//        val articleLikes: List<ArticleLike>,
+//
+//        @OneToMany
+//        @JoinColumn(name = "from_user", referencedColumnName = "user_id")
+//        val followUsers: List<FollowUser>
 
 ) : Serializable {
     @OneToMany

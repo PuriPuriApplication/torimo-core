@@ -13,6 +13,15 @@ data class ArticleDto(
         val categories: List<CategoryDto>
 )
 
+data class ArticleFormDto(
+        val title: String,
+        val body: String?,
+        val createAt: LocalDate,
+        val user: UserDto,
+        val shop: ShopDto,
+        val categories: List<CategoryDto>
+)
+
 fun Article.toDto(): ArticleDto {
     val user: UserDto = this.user.toDto()
     val shop: ShopDto = this.shop.toDto()

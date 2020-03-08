@@ -1,5 +1,6 @@
 package com.ppap.torimocore.presentation.controller
 
+import com.ppap.torimocore.constants.Response
 import com.ppap.torimocore.presentation.dto.ArticleLikeFormDto
 import com.ppap.torimocore.usecase.ArticleLikeUseCase
 import org.springframework.http.HttpStatus
@@ -20,14 +21,14 @@ import org.springframework.web.client.HttpClientErrorException
 class ArticleLikeController(private val useCase: ArticleLikeUseCase) : ControllerBase() {
 
     @PostMapping("like")
-    fun like(@RequestBody @Validated form: ArticleLikeFormDto, bindingResult: BindingResult): Map<String, String?> {
+    fun like(@RequestBody @Validated form: ArticleLikeFormDto, bindingResult: BindingResult): Response {
         if (bindingResult.hasErrors()) throw HttpClientErrorException(HttpStatus.BAD_REQUEST, bindingResult.allErrors.toString())
         useCase.like(form.convert())
         return createResponse(HttpStatus.OK)
     }
 
     @PostMapping("unlike")
-    fun unlike(@RequestBody form: ArticleLikeFormDto, bindingResult: BindingResult): Map<String, String?> {
+    fun unlike(@RequestBody form: ArticleLikeFormDto, bindingResult: BindingResult): Response {
         if (bindingResult.hasErrors()) throw HttpClientErrorException(HttpStatus.BAD_REQUEST, bindingResult.allErrors.toString())
         useCase.unlike(form.convert())
         return createResponse(HttpStatus.OK)

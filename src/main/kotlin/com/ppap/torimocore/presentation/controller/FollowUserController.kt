@@ -1,5 +1,6 @@
 package com.ppap.torimocore.presentation.controller
 
+import com.ppap.torimocore.constants.Response
 import com.ppap.torimocore.presentation.dto.FollowUserFormDto
 import com.ppap.torimocore.usecase.FollowUserUseCase
 import org.springframework.http.HttpStatus
@@ -17,14 +18,14 @@ import org.springframework.web.client.HttpClientErrorException
 class FollowUserController(private val usecase: FollowUserUseCase) : ControllerBase() {
 
     @PostMapping("follow")
-    fun follow(@RequestBody @Validated form: FollowUserFormDto, bindingResult: BindingResult): Map<String, String?> {
+    fun follow(@RequestBody @Validated form: FollowUserFormDto, bindingResult: BindingResult): Response {
         if (bindingResult.hasErrors()) throw HttpClientErrorException(HttpStatus.BAD_REQUEST, bindingResult.allErrors.toString())
         usecase.follow(form.convert())
         return createResponse(HttpStatus.OK)
     }
 
     @PostMapping("unfollow")
-    fun unfollow(@RequestBody @Validated form: FollowUserFormDto, bindingResult: BindingResult): Map<String, String?> {
+    fun unfollow(@RequestBody @Validated form: FollowUserFormDto, bindingResult: BindingResult): Response {
         if (bindingResult.hasErrors()) throw HttpClientErrorException(HttpStatus.BAD_REQUEST, bindingResult.allErrors.toString())
         usecase.unfollow(form.convert())
         return createResponse(HttpStatus.OK)
