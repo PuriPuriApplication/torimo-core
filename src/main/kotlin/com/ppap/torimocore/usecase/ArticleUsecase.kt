@@ -1,11 +1,10 @@
 package com.ppap.torimocore.usecase
 
 import com.ppap.torimocore.domain.Article.Article
+import com.ppap.torimocore.domain.Article.LikeAndFollow
 import com.ppap.torimocore.interfaces.apiclient.ArticleClient
 import com.ppap.torimocore.interfaces.database.ArticleRepository
 import com.ppap.torimocore.interfaces.database.LikeAndFollowRepository
-import com.ppap.torimocore.presentation.dto.LikeAndFollowDto
-import com.ppap.torimocore.presentation.dto.toLikeOrFollowDto
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import retrofit2.Retrofit
@@ -25,7 +24,7 @@ interface ArticleUsecase {
     /**
      * 投稿に対するいいね、フォロー一覧を返します
      */
-    fun showLikeAndFollow(id: Long): LikeAndFollowDto?
+    fun showLikeAndFollow(id: Long): LikeAndFollow?
 
     /**
      * 記事を投稿します
@@ -47,8 +46,8 @@ class ArticleUsecaseImpl(private val repository: ArticleRepository, private val 
 
     override fun showDetail(id: Long): Article? = repository.findById(id).orElse(null)
 
-    override fun showLikeAndFollow(id: Long): LikeAndFollowDto? {
-        return likeAndFollowRepository.findById(id).orElse(null).let { it.toLikeOrFollowDto() }
+    override fun showLikeAndFollow(id: Long): LikeAndFollow? {
+        return likeAndFollowRepository.findById(id).orElse(null)
     }
 
     override fun post(article: Article): Article = runBlocking {
