@@ -4,7 +4,6 @@ import com.ppap.torimocore.domain.Article.Article
 import com.ppap.torimocore.domain.Category.Category
 import com.ppap.torimocore.domain.Shop.Shop
 import com.ppap.torimocore.domain.User.User
-import com.ppap.torimocore.presentation.dto.ArticleLikeDto
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import java.time.LocalDate
@@ -37,8 +36,7 @@ data class ArticleDto(
         val createAt: LocalDate,
         val user: UserDto,
         val shop: ShopDto,
-        val categories: List<CategoryDto>,
-        val articleLikes: List<ArticleLikeDto>
+        val categories: List<CategoryDto>
 ) {
     fun convert(): Article {
         val article = Article(this.id, this.title, this.body, this.createAt, this.user.convert(), this.shop.convert())
