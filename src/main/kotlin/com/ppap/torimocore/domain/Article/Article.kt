@@ -30,15 +30,6 @@ data class Article(
         @ManyToOne
         @JoinColumn(name = "shop_id")
         val shop: Shop
-
-//        @OneToMany
-//        @JoinColumn(name = "article_id", referencedColumnName = "id")
-//        val articleLikes: List<ArticleLike>,
-//
-//        @OneToMany
-//        @JoinColumn(name = "from_user", referencedColumnName = "user_id")
-//        val followUsers: List<FollowUser>
-
 ) : Serializable {
     @OneToMany
     @JoinTable
