@@ -1,41 +1,37 @@
 package com.ppap.torimocore.presentation.controller
 
+import com.ppap.torimocore.constants.*
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.client.HttpClientErrorException
-import java.util.*
+import java.lang.RuntimeException
 
 @CrossOrigin
 @RestController
 class ControllerBase {
 
-    fun createResponse(status: HttpStatus): Map<String, String?> {
-        val map: MutableMap<String, String?> = HashMap()
-        map["statusCode"] = status.value().toString()
-        map["message"] = status.reasonPhrase
-        return map
-    }
+    fun createResponse(status: HttpStatus): Response =
+            ResponseEntity(mapOf(STATUS_CODE to status.value(), MESSAGE to status.reasonPhrase), status)
 
     @ExceptionHandler(HttpClientErrorException::class)
-    fun httpClientError(e: HttpClientErrorException): Map<String, String?> {
-        return when (e.statusCode) {
-            // 随時必要なStatusを実装してください
-            HttpStatus.BAD_REQUEST -> badRequest(e.statusCode)
-            HttpStatus.NOT_FOUND -> notFound(e.statusCode)
-            else -> HashMap() // TODO: 雑だから適切な処理の実装
-        }
+    fun httpClientError(e: HttpClientErrorException): Response = when (e.statusCode) {
+        // 随時必要なStatusを実装してください
+        HttpStatus.BAD_REQUEST -> badRequest(e)
+        HttpStatus.NOT_FOUND -> notFound(e)
+        else -> throw RuntimeException("Not implemented handling status code")
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    private fun badRequest(status: HttpStatus): Map<String, String?> {
-        return createResponse(status)
-    }
+    private fun badRequest(e: HttpClientErrorException): Response = createResponse(e)
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    private fun notFound(status: HttpStatus): Map<String, String?> {
-        return createResponse(status)
-    }
+    private fun notFound(e: HttpClientErrorException): Response = createResponse(e)
+
+    private fun createResponse(e: HttpClientErrorException): Response =
+            ResponseEntity(mapOf(STATUS_CODE to e.statusCode.value(), MESSAGE to e.message), e.statusCode)
+
 }

@@ -1,15 +1,13 @@
 package com.ppap.torimocore.interfaces.database
 
+import com.ppap.torimocore.domain.User.ServiceId
 import com.ppap.torimocore.domain.User.User
+import com.ppap.torimocore.domain.User.UserId
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import org.springframework.transaction.annotation.Transactional
-
 
 @Repository
-@Transactional
-interface UserRepository: JpaRepository<User, Long> {
+interface UserRepository: JpaRepository<User, UserId> {
 
-    fun findByExternalServiceId(id: String): User?
-
+    fun findByExternalServiceId(id: ServiceId): User?
 }

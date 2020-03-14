@@ -8,29 +8,28 @@ import javax.persistence.*
 /**
  * ユーザーデータ
  */
+
+typealias UserId = Long
+typealias ServiceId = String
+
 @Entity
 @Table(name = "users")
 data class User(
 
         @Id
-        @Column(name = "id", nullable = true)
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long? = null,
+        val id: UserId,
 
         @Column(name = "name", nullable = false)
         val name: String,
 
-        @Column(name = "external_service_id", nullable = true)
-        val externalServiceId: String,
+        @Column(name = "external_service_id", nullable = false)
+        val externalServiceId: ServiceId,
 
-        @Enumerated(EnumType.STRING)
-        @Column(name = "external_service_type", nullable = true)
-        val externalServiceType: ExternalServiceTypeEnum,
+        @Column(name = "external_service_type", nullable = false)
+        val externalServiceType: String,
 
-        @Column(name = "create_at", nullable = false)
-        val createAt: Date = Date()
+        @Column(name = "is_deleted", nullable = false)
+        val isDeleted: Boolean
 
-): Serializable {
-
-
-}
+): Serializable
