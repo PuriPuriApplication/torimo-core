@@ -41,6 +41,7 @@ dependencies {
 	implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
 	implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 	implementation("com.google.firebase:firebase-admin:6.8.1")
+
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
