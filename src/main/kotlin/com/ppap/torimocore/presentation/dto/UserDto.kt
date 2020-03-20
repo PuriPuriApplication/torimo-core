@@ -16,9 +16,7 @@ data class UserDto(
         val name: String,
         val externalServiceId: String,
         val externalServiceType: String
-) {
-
-}
+)
 
 
 fun User.toDto(): UserDto {
