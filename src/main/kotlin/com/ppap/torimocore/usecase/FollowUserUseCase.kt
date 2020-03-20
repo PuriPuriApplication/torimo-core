@@ -22,7 +22,15 @@ interface FollowUserUseCase {
      */
     fun unfollow(followUser: FollowUser)
 
+    /**
+     * フォロー数をカウントします
+     */
     fun countFollower(toUserId: Long): Int
+
+    /**
+     * フォロー済みのユーザかどうかを参照します
+     */
+    fun showFollow(toUserId: Long): FollowUser?
 
 }
 
@@ -44,5 +52,9 @@ class FollowUserUseCaseImpl(private val repository: FollowUserRepository) : Foll
 
     override fun countFollower(toUserId: Long): Int {
         return repository.countByToUser(toUserId)
+    }
+
+    override fun showFollow(toUserId: Long): FollowUser? {
+        return repository.findByFromUserAndToUser(1, toUserId)
     }
 }

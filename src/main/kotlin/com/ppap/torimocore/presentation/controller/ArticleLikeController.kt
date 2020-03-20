@@ -33,6 +33,8 @@ class ArticleLikeController(private val useCase: ArticleLikeUseCase) : Controlle
         return createResponse(HttpStatus.OK)
     }
 
+    // TODO: パスパラムではなく認証情報からuser_id取ってこなくてはなのでは？？
+    // TODO: /isLike/{articleId} とかのほうが良さそう
     @GetMapping("{articleId}/user/{userId}")
     fun showLike(@PathVariable("articleId") articleId: Long, @PathVariable("userId") userId: Long): ArticleLikeDto? {
         return useCase.showLike(articleId, userId)?.let { it.toDto() } ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
