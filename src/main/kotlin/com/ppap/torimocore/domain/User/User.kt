@@ -1,13 +1,17 @@
 package com.ppap.torimocore.domain.User
 
+import com.ppap.torimocore.enum.ExternalServiceTypeEnum
 import java.io.Serializable
+import java.util.*
 import javax.persistence.*
+
+/**
+ * ユーザーデータ
+ */
 
 typealias UserId = Long
 typealias ServiceId = String
-/**
- * ユーザー
- */
+
 @Entity
 @Table(name = "users")
 data class User(
