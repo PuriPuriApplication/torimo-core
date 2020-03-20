@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository
 interface UserRepository: JpaRepository<User, UserId> {
 
     fun findByExternalServiceId(id: ServiceId): User?
-
 }
