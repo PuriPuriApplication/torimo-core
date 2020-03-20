@@ -1,10 +1,8 @@
 package com.ppap.torimocore.usecase
 
 import com.ppap.torimocore.domain.Article.Article
-import com.ppap.torimocore.domain.Article.LikeAndFollow
 import com.ppap.torimocore.interfaces.apiclient.ArticleClient
 import com.ppap.torimocore.interfaces.database.ArticleRepository
-import com.ppap.torimocore.interfaces.database.LikeAndFollowRepository
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import retrofit2.Retrofit
@@ -22,11 +20,6 @@ interface ArticleUsecase {
     fun showDetail(id: Long): Article?
 
     /**
-     * 投稿に対するいいね、フォロー一覧を返します
-     */
-    fun showLikeAndFollow(id: Long): LikeAndFollow?
-
-    /**
      * 記事を投稿します
      */
     fun post(article: Article): Article
@@ -38,17 +31,13 @@ interface ArticleUsecase {
 }
 
 @Service
-class ArticleUsecaseImpl(private val repository: ArticleRepository, private val likeAndFollowRepository: LikeAndFollowRepository) : ArticleUsecase {
+class ArticleUsecaseImpl(private val repository: ArticleRepository) : ArticleUsecase {
 
     val articleClient = Retrofit.Builder().baseUrl("http://torimo.article").build().create(ArticleClient::class.java)
 
     override fun showList(): List<Article> = repository.findAll()
 
     override fun showDetail(id: Long): Article? = repository.findById(id).orElse(null)
-
-    override fun showLikeAndFollow(id: Long): LikeAndFollow? {
-        return likeAndFollowRepository.findById(id).orElse(null)
-    }
 
     override fun post(article: Article): Article = runBlocking {
         articleClient.postArticle(article).convert()
