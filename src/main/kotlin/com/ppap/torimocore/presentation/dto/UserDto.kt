@@ -9,6 +9,9 @@ data class UserDto(
         val externalServiceId: String,
         val externalServiceType: String
 ) {
+    fun convert(): User {
+        return User(this.id, this.name, this.externalServiceId, this.externalServiceType, false)
+    }
 }
 
 fun User.toDto(): UserDto {
