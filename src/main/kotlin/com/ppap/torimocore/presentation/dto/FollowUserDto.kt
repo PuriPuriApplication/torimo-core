@@ -3,6 +3,15 @@ package com.ppap.torimocore.presentation.dto
 import com.ppap.torimocore.domain.FollowUser.FollowUser
 import javax.validation.constraints.NotNull
 
+data class FollowUserDto(
+        val fromUser: Long,
+        val toUser: Long
+)
+
+fun FollowUser.toDto(): FollowUserDto {
+    return FollowUserDto(this.fromUser, this.toUser)
+}
+
 data class FollowUserFormDto(
         @field:NotNull
         val fromUser: Long?,

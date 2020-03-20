@@ -22,6 +22,11 @@ interface ArticleLikeUseCase {
      */
     fun unlike(articleLike: ArticleLike)
 
+    /**
+     * 投稿に対するいいねを参照します
+     */
+    fun showLike(articleId: Long, userId: Long): ArticleLike?
+
 }
 
 @Service
@@ -39,4 +44,7 @@ class ArticleLikeUseCaseImpl(private val repository: ArticleLikeRepository) : Ar
         return liked?.let { repository.delete(it) } ?: throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
     }
 
+    override fun showLike(articleId: Long, userId: Long): ArticleLike? {
+        return repository.findByArticleIdAndUserId(articleId, userId)
+    }
 }

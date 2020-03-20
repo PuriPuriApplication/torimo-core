@@ -1,7 +1,9 @@
 package com.ppap.torimocore.presentation.controller
 
 import com.ppap.torimocore.presentation.dto.ArticleDto
+import com.ppap.torimocore.presentation.dto.LikeAndFollowDto
 import com.ppap.torimocore.presentation.dto.toDto
+import com.ppap.torimocore.presentation.dto.toLikeOrFollowDto
 import com.ppap.torimocore.usecase.ArticleUsecase
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,5 +23,9 @@ class ArticleController(private val usecase: ArticleUsecase) : ControllerBase() 
 
     @GetMapping("{id}")
     fun show(@PathVariable("id") id: Long): ArticleDto? = usecase.showDetail(id)?.let { it.toDto() }
+            ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+
+    @GetMapping("{id}/like-and-follow")
+    fun getLikeAndFollow(@PathVariable("id") id: Long): LikeAndFollowDto? = usecase.showLikeAndFollow(id)?.let { it.toLikeOrFollowDto() }
             ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
 }

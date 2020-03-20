@@ -30,7 +30,6 @@ data class Article(
         @ManyToOne
         @JoinColumn(name = "shop_id")
         val shop: Shop
-
 ) : Serializable {
     @OneToMany
     @JoinTable

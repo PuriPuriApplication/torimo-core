@@ -1,7 +1,9 @@
 package com.ppap.torimocore.presentation.controller
 
 import com.ppap.torimocore.constants.Response
+import com.ppap.torimocore.presentation.dto.FollowUserDto
 import com.ppap.torimocore.presentation.dto.FollowUserFormDto
+import com.ppap.torimocore.presentation.dto.toDto
 import com.ppap.torimocore.usecase.FollowUserUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.validation.BindingResult
@@ -34,5 +36,11 @@ class FollowUserController(private val usecase: FollowUserUseCase) : ControllerB
     @GetMapping("/followerCount/{id}")
     fun countFollower(@PathVariable("id") id: Long): Int {
         return usecase.countFollower(id)
+    }
+
+    // TODO: パスパラメーターでtoUserもらって、認証情報からfromUserもらって検索？？
+    @GetMapping("/isFollow/{toUser}")
+    fun showLike(@PathVariable("toUser") toUserId: Long): FollowUserDto? {
+        return usecase.showFollow(toUserId)?.let { it.toDto() } ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
     }
 }
