@@ -25,6 +25,6 @@ data class ArticleFormDto(
 fun Article.toDto(): ArticleDto {
     val user: UserDto = this.user.toDto()
     val shop: ShopDto = this.shop.toDto()
-    val categories: List<CategoryDto> = this.categories.map {  it.toDto() }
+    val categories: List<CategoryDto> = this.categories.map { it.toDto() }
     return ArticleDto(this.id, this.title, this.body, this.createAt, user, shop, categories)
 }

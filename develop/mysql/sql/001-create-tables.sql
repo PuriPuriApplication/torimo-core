@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `article_categories`;
 DROP TABLE IF EXISTS `follow_users`;
+DROP TABLE IF EXISTS `article_likes`;
 
 ---- create ----
 CREATE TABLE `articles` (
@@ -67,6 +68,12 @@ CREATE TABLE `follow_users` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE `article_likes` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `article_id` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 -- insert --
 INSERT INTO `articles` VALUES
@@ -79,7 +86,10 @@ INSERT INTO `shops` VALUES
 
 INSERT INTO `users` VALUES
 (1, 'つじたてすと1', '', '', 0, null, null, null ),
-(2, 'つじたてすと2', '', '', 0, null, null, null );
+(2, 'つじたてすと2', '', '', 0, null, null, null ),
+(3, 'つじたてすと3', '', '', 0, null, null, null ),
+(4, 'つじたてすと4', '', '', 0, null, null, null ),
+(5, 'つじたてすと5', '', '', 0, null, null, null );
 
 INSERT INTO
 categories
@@ -92,4 +102,7 @@ VALUES
 INSERT INTO article_categories VALUES (1, 1);
 
 INSERT INTO follow_users VALUES (1, 1, 2), (2, 2, 1);
+
+INSERT INTO article_likes VALUES (1, 1, 1);
+
 

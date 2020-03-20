@@ -1,9 +1,15 @@
 package com.ppap.torimocore.presentation.controller
 
 import com.ppap.torimocore.constants.Response
+import com.ppap.torimocore.domain.User.User
+import com.ppap.torimocore.presentation.dto.FollowUserDto
 import com.ppap.torimocore.presentation.dto.FollowUserFormDto
+import com.ppap.torimocore.presentation.dto.UserDto
+import com.ppap.torimocore.presentation.dto.toDto
 import com.ppap.torimocore.usecase.FollowUserUseCase
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -34,5 +40,10 @@ class FollowUserController(private val usecase: FollowUserUseCase) : ControllerB
     @GetMapping("/followerCount/{id}")
     fun countFollower(@PathVariable("id") id: Long): Int {
         return usecase.countFollower(id)
+    }
+
+    @GetMapping("/isFollow/{toUser}")
+    fun showLike(@PathVariable("toUser") toUserId: Long, @AuthenticationPrincipal userDto: UserDto): FollowUserDto? {
+        return usecase.showFollow(userDto.id, toUserId)?.let { it.toDto() } ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
     }
 }
