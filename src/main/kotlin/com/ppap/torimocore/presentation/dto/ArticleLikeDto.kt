@@ -14,3 +14,12 @@ data class ArticleLikeFormDto(
         return ArticleLike(0, this.articleId!!, this.userId!!)
     }
 }
+
+data class ArticleLikeDto(
+        val articleId: Long,
+        val userId: Long
+)
+
+fun ArticleLike.toDto(): ArticleLikeDto {
+    return ArticleLikeDto(this.articleId, this.userId)
+}
