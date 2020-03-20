@@ -3,9 +3,11 @@ package com.ppap.torimocore.presentation.controller
 import com.ppap.torimocore.constants.Response
 import com.ppap.torimocore.presentation.dto.ArticleLikeDto
 import com.ppap.torimocore.presentation.dto.ArticleLikeFormDto
+import com.ppap.torimocore.presentation.dto.UserDto
 import com.ppap.torimocore.presentation.dto.toDto
 import com.ppap.torimocore.usecase.ArticleLikeUseCase
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -33,11 +35,9 @@ class ArticleLikeController(private val useCase: ArticleLikeUseCase) : Controlle
         return createResponse(HttpStatus.OK)
     }
 
-    // TODO: パスパラムではなく認証情報からuser_id取ってこなくてはなのでは？？
-    // TODO: /isLike/{articleId} とかのほうが良さそう
-    @GetMapping("{articleId}/user/{userId}")
-    fun showLike(@PathVariable("articleId") articleId: Long, @PathVariable("userId") userId: Long): ArticleLikeDto? {
-        return useCase.showLike(articleId, userId)?.let { it.toDto() } ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+    @GetMapping("/isLike/{articleId}")
+    fun showLike(@PathVariable("articleId") articleId: Long, @AuthenticationPrincipal userDto: UserDto): ArticleLikeDto? {
+        return useCase.showLike(articleId, userDto.id)?.let { it.toDto() } ?: throw HttpClientErrorException(HttpStatus.NOT_FOUND)
     }
 
 }
